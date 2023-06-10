@@ -1,0 +1,20 @@
+ [
+    {
+        "username":"anonymousUser",
+        "hash":"nnn",
+        "firstName":"Anonymous",
+        "lastName":"User",
+        "accessGroup":[
+            "loggedOutUsers"
+        ]
+    },
+    {
+        "username":"anonymousUser",
+        "hash":"nnn",
+        "firstName":"Anonymous",
+        "lastName":"User",
+        "accessGroup":[
+            "loggedOutUsers"
+        ]
+    }
+]
