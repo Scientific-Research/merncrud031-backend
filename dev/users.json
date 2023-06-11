@@ -1,7 +1,7 @@
  [
     {
         "username":"anonymousUser",
-        "hash":"nnn",
+        "hash":"",
         "firstName":"Anonymous",
         "lastName":"User",
         "accessGroup":[
@@ -10,7 +10,7 @@
     },
     {
         "username":"maximilian",
-        "hash":"nnn",
+        "hash":"$2b$12$T39zPlPFOIpK5TKqiuIVAOI..qDZ8qY7SQkybJHB.WZaIyu1q1oEW",
         "firstName":"Maximilian",
         "lastName":"Karimi",
         "accessGroup":[
@@ -21,7 +21,7 @@
     },
     {
         "username":"marina",
-        "hash":"nnn",
+        "hash":"$2b$12$boukJqNC1490flKmrO2cgeC8B7CndpRPVwpe98ZIL7fakG5JPDqle",
         "firstName":"Marina",
         "lastName":"Merryfeld",
         "accessGroup":[
@@ -31,7 +31,7 @@
     },
     {
         "username":"victor",
-        "hash":"nnn",
+        "hash":"$2b$12$vXb.2yh7cUmkSE9zlfyjzOM/DpL6Cks5zmbcryZvZGFEIlbY3OgXa",
         "firstName":"Victor",
         "lastName":"Verreldo",
         "accessGroup":[
@@ -41,7 +41,7 @@
     },
     {
         "username":"miki",
-        "hash":"nnn",
+        "hash":"$2b$12$fqeowuCfQx1uo9OCQz4Tl.qBKySL6e/JsaL/e/fRSnt0uSmjYr2SS",
         "firstName":"Miki",
         "lastName":"Merrolda",
         "accessGroup":[

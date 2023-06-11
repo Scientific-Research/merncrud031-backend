@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 const password = process.argv[2];
 
 if (password === undefined) {
@@ -10,4 +12,8 @@ if (password === undefined) {
 } else {
 	// create hash
 	console.log(`hashing ${password}...`);
+	const salt = await bcrypt.genSalt(12);
+	// console.log(salt);
+	const hash = await bcrypt.hash(password, salt);
+	console.log(hash); // store hash in database in user's record
 }
