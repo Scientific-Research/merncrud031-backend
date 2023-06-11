@@ -9,12 +9,44 @@
         ]
     },
     {
-        "username":"anonymousUser",
+        "username":"maximilian",
         "hash":"nnn",
-        "firstName":"Anonymous",
-        "lastName":"User",
+        "firstName":"Maximilian",
+        "lastName":"Karimi",
         "accessGroup":[
-            "loggedOutUsers"
+            "loggedInUsers",
+            "members",
+            "admins"
+        ]
+    },
+    {
+        "username":"marina",
+        "hash":"nnn",
+        "firstName":"Marina",
+        "lastName":"Merryfeld",
+        "accessGroup":[
+            "loggedInUsers",
+            "members"
+        ]
+    },
+    {
+        "username":"victor",
+        "hash":"nnn",
+        "firstName":"Victor",
+        "lastName":"Verreldo",
+        "accessGroup":[
+            "loggedInUsers", 
+            "members"
+        ]
+    },
+    {
+        "username":"miki",
+        "hash":"nnn",
+        "firstName":"Miki",
+        "lastName":"Merrolda",
+        "accessGroup":[
+            "loggedInUsers",  
+            "unapprovedMembers"
         ]
     }
 ]
