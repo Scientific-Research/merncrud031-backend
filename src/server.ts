@@ -14,11 +14,13 @@ declare module 'express-session' {
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-	origin: config.FRONTEND_URL,
-	methods: ['POST', 'GET', 'DELETE', 'PUT', 'OPTIONS', 'HEAD'],
-	credentials: true
-}));
+app.use(
+	cors({
+		origin: config.FRONTEND_URL,
+		methods: ['POST', 'GET', 'DELETE', 'PUT', 'OPTIONS', 'HEAD'],
+		credentials: true,
+	})
+);
 app.use(cookieParser());
 app.use(
 	session({
@@ -28,8 +30,8 @@ app.use(
 		cookie: {
 			httpOnly: true,
 			sameSite: 'strict',
-			secure: false
-		}
+			secure: false,
+		},
 	})
 );
 
@@ -51,10 +53,13 @@ app.get('/book/:id', async (req, res) => {
 });
 
 app.post('/login', (req: express.Request, res: express.Response) => {
-	const { password } = req.body;
+	const { username, password } = req.body;																
+	const user = model.getUser(username, password);
 	if (password === config.ADMIN_PASSWORD) {
-		req.session.user = 'admin' as any;
-		req.session.cookie.expires = new Date(Date.now() + config.SECONDS_TILL_SESSION_TIMEOUT * 1000);
+		req.session.user = user as any;
+		req.session.cookie.expires = new Date(
+			Date.now() + config.SECONDS_TILL_SESSION_TIMEOUT * 1000
+		);
 		req.session.save();
 		res.status(200).send('ok');
 	} else {
@@ -80,16 +85,19 @@ app.get('/logout', (req, res) => {
 	});
 });
 
-
 // PROTECTED ROUTES
 
-const authorizeUser = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-	if (req.session.user === 'admin' as any) {
+const authorizeUser = (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
+	if (req.session.user === ('admin' as any)) {
 		next();
 	} else {
 		res.status(401).send({});
 	}
-}
+};
 
 app.post('/book', authorizeUser, async (req, res) => {
 	const book: INewBook = req.body;
@@ -103,7 +111,7 @@ app.put('/book/:id', authorizeUser, async (req, res) => {
 	const result = await model.replaceBook(_id, book);
 	res.status(200).json({
 		oldBook: result.oldBook,
-		result: result.newBook
+		result: result.newBook,
 	});
 });
 
@@ -114,5 +122,7 @@ app.delete('/book/:id', authorizeUser, async (req, res) => {
 });
 
 app.listen(config.PORT, () => {
-	console.log(`${config.APP_NAME} is listening on port http://localhost:${config.PORT}`);
+	console.log(
+		`${config.APP_NAME} is listening on port http://localhost:${config.PORT}`
+	);
 });

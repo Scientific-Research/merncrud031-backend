@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { Book } from './models/Book.js';
 import * as config from './config.js';
 import { IBook, INewBook } from './interfaces.js';
+import { User } from './models/User.js';
 
 mongoose.set('strictQuery', false);
 mongoose.connect(config.MONGODB_CONNECTION);
@@ -9,25 +10,27 @@ mongoose.connect(config.MONGODB_CONNECTION);
 const decorateAndSanitizeBook = (docBook: any) => {
 	const book: IBook = {
 		...docBook.toObject({ versionKey: false }),
-		languageText: docBook.language.charAt(0).toUpperCase() + docBook.language.slice(1)
+		languageText:
+			docBook.language.charAt(0).toUpperCase() +
+			docBook.language.slice(1),
 	};
 	return book;
-}
+};
 
 export const getBooks = async () => {
 	const docBooks = await Book.find();
 	const books: IBook[] = [];
-	docBooks.forEach(docBook => {
+	docBooks.forEach((docBook) => {
 		books.push(decorateAndSanitizeBook(docBook));
-	})
+	});
 	return books;
-}
+};
 
 export const getBook = async (_id: string) => {
 	const rawBook = await Book.findOne({ _id });
 	const book = decorateAndSanitizeBook(rawBook);
 	return book;
-}
+};
 
 export const addBook = async (book: INewBook) => {
 	return new Promise(async (resolve, reject) => {
@@ -35,19 +38,24 @@ export const addBook = async (book: INewBook) => {
 		const addedDocBook = await docBook.save();
 		resolve(addedDocBook.toObject({ versionKey: false }));
 	});
-}
+};
 
 export const replaceBook = async (_id: string, changedBook: INewBook) => {
-	const oldBook = await Book.find({ _id});
-    await Book.updateOne({ _id }, {$set: {...changedBook}});
+	const oldBook = await Book.find({ _id });
+	await Book.updateOne({ _id }, { $set: { ...changedBook } });
 	const newBook = await Book.find({ _id });
-	return {oldBook, newBook};
-}
+	return { oldBook, newBook };
+};
 
 export const deleteBook = async (_id: string) => {
 	const result = await Book.deleteOne({ _id });
 	return result;
-}
+};
+
+export const getUser = async (username: string, password: string) => {
+	const user = await User.findOne({ username });
+	return user;
+};
 
 export const getApiInstructions = () => {
 	return `
@@ -92,4 +100,4 @@ export const getApiInstructions = () => {
 	<li>DELETE <span>/book/id</span> - delete a book</li>
 </ul>
 	`;
-}
+};
