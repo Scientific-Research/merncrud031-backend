@@ -54,6 +54,7 @@ export const deleteBook = async (_id: string) => {
 
 export const getUser = async (username: string, password: string) => {
 	const user = await User.findOne({ username });
+	console.log(user);
 	return user;
 };
 
