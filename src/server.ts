@@ -56,15 +56,23 @@ app.get('/book/:id', async (req, res) => {
 app.post('/login', async (req: express.Request, res: express.Response) => {
 	const { username, password } = req.body;
 	const user = await model.getUser(username, password);
-	const passwordIsCorrect = await tools.passwordIsCorrect(password, user.hash);
-	console.log('isCorrect:', passwordIsCorrect);
-	if (passwordIsCorrect) {
-		req.session.user = user as any;
-		req.session.cookie.expires = new Date(
-			Date.now() + config.SECONDS_TILL_SESSION_TIMEOUT * 1000
+	// console.log(user);
+	if (user !== null) {
+		const passwordIsCorrect = await tools.passwordIsCorrect(
+			password,
+			user.hash
 		);
-		req.session.save();
-		res.status(200).send('ok');
+		// console.log('isCorrect:', passwordIsCorrect);
+		if (passwordIsCorrect) {
+			req.session.user = user as any;
+			req.session.cookie.expires = new Date(
+				Date.now() + config.SECONDS_TILL_SESSION_TIMEOUT * 1000
+			);
+			req.session.save();
+			res.status(200).send('ok');
+		} else {
+			res.status(401).send({});
+		}
 	} else {
 		res.status(401).send({});
 	}
